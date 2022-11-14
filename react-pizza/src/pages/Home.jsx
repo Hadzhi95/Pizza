@@ -1,6 +1,7 @@
 import React from 'react'
 
 import ReactPaginate from 'react-paginate';
+import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
@@ -8,7 +9,10 @@ import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
-function Home({ searchValue }) {
+// function Home({ searchValue }) было до контекста {
+function Home() {
+    const { searchValue, setSearchValue } = React.useContext(SearchContext)
+
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
     const [categoryId, setCategoryId] = React.useState(0)
@@ -52,7 +56,7 @@ function Home({ searchValue }) {
                     // />)
                 }
             </div>
-            <Pagination onChangePage={number => setCurrentPage(number)}/>
+            <Pagination onChangePage={number => setCurrentPage(number)} />
         </div>
     )
 }
