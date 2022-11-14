@@ -11,7 +11,7 @@ export default function Sort({ value, onChangeSort }) {
   { name: 'алфавиту(ASC)', sortProperty: '-title' }]
 
   // const sortName = list[value].name
-console.log(value.name);
+// console.log(value.name);
   const onClickListItem = (i) => {
     onChangeSort(i)
     setOpen(false)
