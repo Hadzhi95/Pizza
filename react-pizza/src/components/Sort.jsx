@@ -31,7 +31,6 @@ const sortRef = React.useRef()
     const handleClickOutside = (event) => {
       if(!event.path.includes(sortRef.current)) {
         setOpen(false)
-        console.log('click outside');
       }
     }
     document.body.addEventListener('click', handleClickOutside)
