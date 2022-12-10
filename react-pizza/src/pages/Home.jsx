@@ -13,6 +13,7 @@ import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort, { sortList } from '../components/Sort';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 // function Home({ searchValue }) было до контекста {
 function Home() {
@@ -25,12 +26,13 @@ function Home() {
 
 
     const { categoryId, sort, currentPage } = useSelector((state) => state.filter)
+    const items = useSelector((state) => state.pizza.items)
 
 
 
 
     const { searchValue, setSearchValue } = React.useContext(SearchContext)
-    const [items, setItems] = React.useState([])
+    // const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
     // const [categoryId, setCategoryId] = React.useState(0) было до тулкит
     // const [currentPage, setCurrentPage] = React.useState(1) было до тулкит
@@ -49,7 +51,7 @@ function Home() {
         dispatch(setCurrentPage(number))
     }
 
-    const fetchPizzas = () => {
+    const getPizzas = async () => {
         setIsLoading(true)
         // const order = sortType.sortProperty.includes('-' ? 'asc' : 'desc') было до тулкит
         // const sortBy = sortType.sortProperty.replace('-', '') было до тулкит
@@ -65,16 +67,35 @@ function Home() {
         //     .then((arr) => setItems(arr))
         // setIsLoading(false) было до аксиоса
 
-        axios
-            .get(`https://6329d2b14c626ff832cb763a.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
-            .then((res) => {
-                setItems(res.data)
-                setIsLoading(false)
-            })
+        // axios
+        //     .get(`https://6329d2b14c626ff832cb763a.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
+        //     .then((res) => {
+        //         setItems(res.data)
+        //         setIsLoading(false)
+        //     }) до асинк эвейта
+
+        try {
+            dispatch(
+                fetchPizzas({
+                    sortBy,
+                    order,
+                    category,
+                    search,
+                    currentPage
+                })
+            )
+            
+        } catch(error) {
+            setIsLoading(false)
+            alert("Ошибка при получении пицц")
+        }finally{
+            setIsLoading(false)
+        }
+        
     }
     // если изменили параметры и был первый рендер
     React.useEffect(() => {
-        if(isMounted.current) {
+        if (isMounted.current) {
             const queryString = qs.stringify({
                 sortProperty: sort.sortProperty,
                 categoryId,
@@ -97,14 +118,14 @@ function Home() {
                     ...params,
                     sort,
                 }))
-                isSearch.current = true
+            isSearch.current = true
         }
     }, [])
-    
+
     // если был первый рендер то запрашиваем пиццы
     React.useEffect(() => {
-        if(!isSearch.current){
-            fetchPizzas()
+        if (!isSearch.current) {
+            getPizzas()
         }
         isSearch.current = false
         window.scrollTo(0, 0)
@@ -112,7 +133,7 @@ function Home() {
 
 
 
-    
+
 
 
     const sceletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
