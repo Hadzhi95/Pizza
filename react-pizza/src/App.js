@@ -7,17 +7,16 @@ import NotFound from './pages/NotFound';
 
 import './scss/app.scss'
 
-export const SearchContext = React.createContext();
+// export const SearchContext = React.createContext();
 // console.log(SearchContext);
 
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState('')
-  // console.log(searchValue);
+  // const [searchValue, setSearchValue] = React.useState('')
+
 
   return (
     <div className="wrapper">
-      <SearchContext.Provider value={{ searchValue, setSearchValue }}>
         {/* <Header value={searchValue} searchValue={searchValue} setSearchValue={setSearchValue} /> было до контекста */}
         <Header />
         <div className="content">
@@ -31,7 +30,6 @@ function App() {
           {/* <Home/> */}
           {/* <NotFound/> */}
         </div>
-      </SearchContext.Provider>
     </div>
   );
 }

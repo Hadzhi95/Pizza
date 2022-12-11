@@ -2,7 +2,7 @@ import React from 'react'
 import qs from 'qs'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 
 import ReactPaginate from 'react-paginate';
 import { SearchContext } from '../App';
@@ -12,7 +12,7 @@ import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort, { sortList } from '../components/Sort';
-import { fetchPizzas,SelectPizzaData } from '../redux/slices/pizzaSlice';
+import { fetchPizzas,selectPizzaData,SelectPizzaData } from '../redux/slices/pizzaSlice';
 
 // function Home({ searchValue }) было до контекста {
 function Home() {
@@ -24,13 +24,12 @@ function Home() {
     // const sortType = useSelector(state => state.filter.sort.sortProperty)
 
 
-    const { categoryId, sort, currentPage } = useSelector((state) => state.filter)
-    const { items, status } = useSelector((state) => state.pizza)
+    const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter)
+    // const { categoryId, sort, currentPage } = useSelector((state) => state.filter) было до создания селекторов в редаксе
+    // const { items, status } = useSelector((state) => state.pizza) было до создания селекторов в редаксе
+    const { items, status } = useSelector(selectPizzaData)
 
 
-
-
-    const { searchValue } = React.useContext(SearchContext)
     // const [items, setItems] = React.useState([])
     // const [isLoading, setIsLoading] = React.useState(true) было до тулкит
     // const [categoryId, setCategoryId] = React.useState(0) было до тулкит
