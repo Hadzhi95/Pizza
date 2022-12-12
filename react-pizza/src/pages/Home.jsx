@@ -1,7 +1,7 @@
 import React from 'react'
 import qs from 'qs'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 
 import ReactPaginate from 'react-paginate';
@@ -56,7 +56,6 @@ function Home() {
         const sortBy = sort.sortProperty.replace('-', '')
         const category = categoryId > 0 ? `category=${categoryId}` : ''
         const search = searchValue ? `&search=${searchValue}` : ''
-        console.log(order);
 
         // fetch(`https://6329d2b14c626ff832cb763a.mockapi.io/items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}${search}`)
         //     .then((res) => res.json())
@@ -126,7 +125,7 @@ function Home() {
 
 
     const sceletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-    const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
+    const pizzas = items.map((obj) => <Link key={obj.id} to={`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>)
 
 
     return (
