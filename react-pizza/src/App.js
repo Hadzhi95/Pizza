@@ -1,7 +1,9 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
+import MainLayout from './layouts/MainLayout';
 import Cart from './pages/Cart';
+import FullPizza from './pages/FullPizza';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
@@ -16,22 +18,23 @@ function App() {
 
 
   return (
-    <div className="wrapper">
-        {/* <Header value={searchValue} searchValue={searchValue} setSearchValue={setSearchValue} /> было до контекста */}
-        <Header />
-        <div className="content">
+        // {/* <Header value={searchValue} searchValue={searchValue} setSearchValue={setSearchValue} /> было до контекста */}
+        // {/* <Route path='/' element={<Home searchValue={searchValue} />} /> было до контекста */}
+        
 
           <Routes>
-            {/* <Route path='/' element={<Home searchValue={searchValue} />} /> было до контекста */}
-            <Route path='/' element={<Home />} />
-            <Route path='/cart' element={<Cart />} />
+            <Route path='/' element={<MainLayout/>}>
+            <Route path='' element={<Home />} />
+            <Route path='cart' element={<Cart />} />
+            <Route path='pizza/:id' element={<FullPizza />} />
             <Route path='*' element={<NotFound />} />
+            </Route>
           </Routes>
-          {/* <Home/> */}
-          {/* <NotFound/> */}
-        </div>
-    </div>
-  );
+
+          // {/* <Home/> */} 
+          // {/* <NotFound/> */} 
+        
+  )
 }
 
 export default App;
