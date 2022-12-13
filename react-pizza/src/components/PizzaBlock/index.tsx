@@ -1,10 +1,20 @@
+import { type } from '@testing-library/user-event/dist/type'
 import React from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import {addItem, selectCartItemById} from '../../redux/slices/cartSlice'
 const typeNames = ['тонкое', 'традиционное']
 
+type PizzaBlockProps = {
+    id:string, 
+    title:string, 
+    price:number, 
+    imageUrl:string, 
+    sizes:number[], 
+    types:number[],
+    rating: number
+}
 
-function PizzaBlock({id, title, price, imageUrl, sizes, types }) {
+const PizzaBlock:React.FC<PizzaBlockProps> = ({id, title, price, imageUrl, sizes, types, rating }) => {
     const [pizzaCount, setPizzaCount] = React.useState(0)
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)

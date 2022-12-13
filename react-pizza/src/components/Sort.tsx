@@ -2,27 +2,32 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
+type SortItem = {
+  name: string;
+  sortProperty: string
+}
 
-export const sortList = [{ name: 'популярности(DESC)', sortProperty: 'rating' },
-{ name: 'популярности(ASC)', sortProperty: '-rating' },
-{ name: 'цене(DESC)', sortProperty: 'price' },
-{ name: 'цене(ASC)', sortProperty: '-price' },
-{ name: 'алфавиту(DESC)', sortProperty: 'title' },
-{ name: 'алфавиту(ASC)', sortProperty: '-title' }]
+export const sortList: SortItem[] = [
+  { name: 'популярности(DESC)', sortProperty: 'rating' },
+  { name: 'популярности(ASC)', sortProperty: '-rating' },
+  { name: 'цене(DESC)', sortProperty: 'price' },
+  { name: 'цене(ASC)', sortProperty: '-price' },
+  { name: 'алфавиту(DESC)', sortProperty: 'title' },
+  { name: 'алфавиту(ASC)', sortProperty: '-title' }]
 
 // export default function Sort({ value, onChangeSort }) { было до тулкит
 export default function Sort() {
-const dispatch = useDispatch()
-// const sort = useSelector(state => state.filter.sort) было до селектора
-const sort = useSelector(selectSort)
+  const dispatch = useDispatch()
+  // const sort = useSelector(state => state.filter.sort) было до селектора
+  const sort = useSelector(selectSort)
 
-const sortRef = React.useRef()
+  const sortRef = React.useRef<HTMLDivElement>(null)
   const [open, setOpen] = React.useState(false)
   // const [selected, setselected] = React.useState(0)
 
   // const sortName = list[value].name
-// console.log(value.name);
-  const onClickListItem = (obj) => {
+  // console.log(value.name);
+  const onClickListItem = (obj: SortItem) => {
     // onChangeSort(i)
     dispatch(setSort(obj))
     setOpen(false)
@@ -30,15 +35,15 @@ const sortRef = React.useRef()
 
   React.useEffect(() => {
 
-    const handleClickOutside = (event) => {
-      if(!event.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: any) => {
+      if (!event.path.includes(sortRef.current)) {
         setOpen(false)
       }
     }
     document.body.addEventListener('click', handleClickOutside)
 
-    return() => document.body.removeEventListener('click', handleClickOutside)
-    
+    return () => document.body.removeEventListener('click', handleClickOutside)
+
   }, [])
 
   return (
