@@ -5,7 +5,7 @@ import '../scss/app.scss'
 
 
 
-function MainLayout() {
+const MainLayout: React.FC = () => {
   return (
     <div className='wrapper'>
       <Header/>

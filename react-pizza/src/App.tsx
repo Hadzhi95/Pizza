@@ -7,6 +7,7 @@ import FullPizza from './pages/FullPizza';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
+
 import './scss/app.scss'
 
 // export const SearchContext = React.createContext();
@@ -15,13 +16,21 @@ import './scss/app.scss'
 
 function App() {
   // const [searchValue, setSearchValue] = React.useState('')
+  const [value, setValue] = React.useState(0)
+
+  React.useEffect(() => {
+    if(value === 0){
+      setValue(Math.random() * 99 + 99)
+    }
+  },[value])
 
 
   return (
         // {/* <Header value={searchValue} searchValue={searchValue} setSearchValue={setSearchValue} /> было до контекста */}
         // {/* <Route path='/' element={<Home searchValue={searchValue} />} /> было до контекста */}
-        
+        <>
 
+            <div onClick={() => setValue(0)}> value: {value}</div>
           <Routes>
             <Route path='/' element={<MainLayout/>}>
             <Route path='' element={<Home />} />
@@ -30,7 +39,7 @@ function App() {
             <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>
-
+          </>
           // {/* <Home/> */} 
           // {/* <NotFound/> */} 
         

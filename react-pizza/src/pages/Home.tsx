@@ -5,17 +5,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { selectFilter, setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 
 import ReactPaginate from 'react-paginate';
-import { SearchContext } from '../App';
 
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort, { sortList } from '../components/Sort';
-import { fetchPizzas,selectPizzaData,SelectPizzaData } from '../redux/slices/pizzaSlice';
+import { fetchPizzas,selectPizzaData } from '../redux/slices/pizzaSlice';
 
 // function Home({ searchValue }) было до контекста {
-function Home() {
+const Home:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isSearch = React.useRef(false)
@@ -41,12 +40,12 @@ function Home() {
     //     sortProperty: 'rating'
     // }) было до тулкит
 
-    const onChangeCategory = (id) => {
-        dispatch(setCategoryId(id))
+    const onChangeCategory = (idx: number) => {
+        dispatch(setCategoryId(idx))
     }
 
-    const onChangePage = (number) => {
-        dispatch(setCurrentPage(number))
+    const onChangePage = (page: number) => {
+        dispatch(setCurrentPage(page))
     }
 
     const getPizzas = async () => {
@@ -70,6 +69,7 @@ function Home() {
         //     }) до асинк эвейта
 
         dispatch(
+            // @ts-ignore
             fetchPizzas({
                 sortBy,
                 order,
@@ -125,7 +125,7 @@ function Home() {
 
 
     const sceletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-    const pizzas = items.map((obj) => <Link key={obj.id} to={`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>)
+    const pizzas = items.map((obj:any) => <Link key={obj.id} to={`/pizza/${obj.id}`}><PizzaBlock  {...obj} /></Link>)
 
 
     return (
