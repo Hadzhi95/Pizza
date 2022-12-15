@@ -2,20 +2,21 @@ import React from 'react'
 
 type CategoriesProps = {
   value: number;
-  onChangeCategory: any
+  onChangeCategory: (idx: number) => void
 }
+const categories = [
+  'Все',
+  'Мясные',
+  'Вегетарианская',
+  'Гриль',
+  'Острые',
+  'Закрытые',
+]
 
 const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory}) => {
 
   // const [activeIndex, setActiveIndex ] = React.useState(0)
-  const categories = [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
-  ]
+  
 
   // const onClickCategory = (index) => {
   //   setActiveIndex(index)
