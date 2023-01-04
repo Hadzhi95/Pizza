@@ -18,7 +18,7 @@ function App() {
   // const [searchValue, setSearchValue] = React.useState('')
   const [value, setValue] = React.useState(0)
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if(value === 0){
       setValue(Math.random() * 99 + 99)
     }
