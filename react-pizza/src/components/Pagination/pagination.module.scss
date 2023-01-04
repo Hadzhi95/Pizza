@@ -2,7 +2,6 @@
     li {
         display: inline-block;
 
-
         a {
             width: 45px;
             text-align: center;
@@ -25,7 +24,7 @@
 
     :global {
         .selected {
-            a{
+            a {
                 background-color: #fe5f1e;
                 color: #fff;
             }
