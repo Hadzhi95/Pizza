@@ -5,9 +5,7 @@ import { useSelector } from 'react-redux'
 import React from 'react'
 import { selectCart } from '../redux/cart/selectors'
 
-// function Header({searchValue, setSearchValue}) { было до контекста
 function Header() {
-  // const {totalPrice, items} = useSelector((state) => state.cart) было до селектора
   const { items, totalPrice } = useSelector(selectCart)
   const location = useLocation()
   const isMounted = React.useRef(false)

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import { setSort } from '../redux/filter/slice';
 import { Sort, SortPropertyEnum } from '../redux/filter/types';
 
-
 type SortItem = {
   name: string;
   sortProperty: SortPropertyEnum
@@ -21,36 +20,25 @@ export const sortList: SortItem[] = [
 type SortPopupProps = {
   value: Sort
 }
-// export default function Sort({ value, onChangeSort }) { было до тулкит
+
 const SortPopup: React.FC<SortPopupProps> = React.memo(({ value }) => {
-  
   const dispatch = useDispatch()
-  // const sort = useSelector(state => state.filter.sort) было до селектора
-  // const sort = useSelector(selectSort)
 
   const sortRef = React.useRef<HTMLDivElement>(null)
   const [open, setOpen] = React.useState(false)
-  // const [selected, setselected] = React.useState(0)
-
-  // const sortName = list[value].name
-  // console.log(value.name);
   const onClickListItem = (obj: SortItem) => {
-    // onChangeSort(i)
     dispatch(setSort(obj))
     setOpen(false)
   }
 
   React.useEffect(() => {
-
     const handleClickOutside = (event: MouseEvent) => {
       if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false)
       }
     }
     document.body.addEventListener('click', handleClickOutside)
-
     return () => document.body.removeEventListener('click', handleClickOutside)
-
   }, [])
 
   return (
