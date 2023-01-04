@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 type CategoriesProps = {
   value: number;
   onChangeCategory: (idx: number) => void
@@ -13,7 +15,8 @@ const categories = [
   'Закрытые',
 ]
 
-const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory}) => {
+const Categories: React.FC<CategoriesProps> = React.memo(({value, onChangeCategory}) => {
+  // useWhyDidYouUpdate('Categoties', {value, onChangeCategory})
 
   // const [activeIndex, setActiveIndex ] = React.useState(0)
   
@@ -33,6 +36,6 @@ const Categories: React.FC<CategoriesProps> = ({value, onChangeCategory}) => {
         </ul>
       </div>
     )
-  }
+  })
 
-  export default Categories
+  export default React.memo(Categories) 
