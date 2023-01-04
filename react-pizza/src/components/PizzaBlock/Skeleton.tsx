@@ -17,3 +17,5 @@ export const Skeleton:React.FC = () => (
     <rect x="125" y="427" rx="24" ry="24" width="152" height="45" />
   </ContentLoader>
 );
+
+export default Skeleton
