@@ -5,11 +5,15 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import ReactPaginate from 'react-paginate';
 
-import Categories from '../components/Categories';
-import Pagination from '../components/Pagination';
-import PizzaBlock from '../components/PizzaBlock';
-import { Skeleton } from '../components/PizzaBlock/Skeleton';
-import Sort, { sortList } from '../components/Sort';
+// import Categories from '../components/Categories';
+// import Pagination from '../components/Pagination';
+// import PizzaBlock from '../components/PizzaBlock';
+// import Skeleton from '../components/PizzaBlock/Skeleton';
+// import Sort from '../components/Sort';
+
+import {Categories, Pagination, PizzaBlock, Skeleton, Sort} from '../components'
+
+import { sortList } from '../components/Sort';
 import { useAppDispatch } from '../redux/store';
 import { selectFilter } from '../redux/filter/selectors';
 import { selectPizzaData } from '../redux/pizza/selectors';
@@ -17,7 +21,7 @@ import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
 import { fetchPizzas } from '../redux/pizza/asyncActions';
 
 // function Home({ searchValue }) было до контекста {
-const Home:React.FC = () => {
+const Home: React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const isSearch = React.useRef(false)
@@ -45,7 +49,7 @@ const Home:React.FC = () => {
 
     const onChangeCategory = React.useCallback((idx: number) => {
         dispatch(setCategoryId(idx))
-    },[])
+    }, [])
 
     const onChangePage = (page: number) => {
         dispatch(setCurrentPage(page))
@@ -106,7 +110,7 @@ const Home:React.FC = () => {
     //     if (window.location.search) {
     //         const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams
     //         const sort = sortList.find((obj) => obj.sortProperty === params.sortBy)
-           
+
     //         dispatch(
     //             setFilters({
     //                 searchValue: params.search,
@@ -120,7 +124,7 @@ const Home:React.FC = () => {
 
     // если был первый рендер то запрашиваем пиццы
     React.useEffect(() => {
-            getPizzas()
+        getPizzas()
     }, [categoryId, sort.sortProperty, searchValue, currentPage])
 
 
@@ -129,7 +133,7 @@ const Home:React.FC = () => {
 
 
     const sceletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />)
-    const pizzas = items.map((obj:any) => <PizzaBlock key={obj.id} {...obj} />)
+    const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)
 
 
     return (
@@ -139,7 +143,7 @@ const Home:React.FC = () => {
                 <Categories value={categoryId} onChangeCategory={onChangeCategory} />
 
                 {/* <Sort value={sortType} onChangeSort={(id) => setSortType(id)} /> */}
-                <Sort value={sort}/>
+                <Sort value={sort} />
 
             </div>
             <h2 className="content__title">Все пиццы</h2>
